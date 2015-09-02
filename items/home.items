@@ -24,15 +24,15 @@ Group:Contact:OR(OPEN,CLOSED)	Doors	"Open doors [(%d)]"		<contact>	(Alarme)
 
 String 	Garage 			"Garage [%s]"				<garage>	(G)
 Number	Temperature_Chart_Garage
-Number	Humidity_G_Garage	"Humiditée [%.2f %%]"					(G,Humidity)		{ mqtt="<[arduino:MyMQTT/100/0/V_HUM:state:default]" }
-Number	Temperature_G_Garage	"Temperature [%.2f °C]"			<temperature>	(G,Temperature, MySensorsMonitor)		{ mqtt="<[arduino:MyMQTT/100/1/V_TEMP:state:default]" }
-Switch	Relay_G_Garage		"Manette"				<garagedoor>	(G)			{ autoupdate="false", mqtt=">[arduino:MyMQTT/100/3/V_LIGHT:command:ON:1]" }
-Contact	Contact_G_Garage	"Garage [MAP(contact-display.map):%s]"	<garagedoor>	(G,Doors)		{ mqtt="<[arduino:MyMQTT/100/2/V_TRIPPED:state:MAP(contact.map)]" }
+Number	Humidity_G_Garage	"Humiditée [%.2f %%]"					(G,Humidity)				{ mqtt="<[arduino:MyMQTT/100/0/V_HUM:state:default]" }
+Number	Temperature_G_Garage	"Temperature [%.2f °C]"			<temperature>	(G,Temperature, MySensorsMonitor)	{ mqtt="<[arduino:MyMQTT/100/1/V_TEMP:state:default]" }
+Switch	Relay_G_Garage		"Manette"				<garagedoor>	(G)					{ autoupdate="false", mqtt=">[arduino:MyMQTT/100/3/V_LIGHT:command:ON:1]" }
+Contact	Contact_G_Garage	"Garage [MAP(contact-display.map):%s]"	<garagedoor>	(G,Doors)				{ mqtt="<[arduino:MyMQTT/100/2/V_TRIPPED:state:MAP(contact.map)]" }
 DateTime	Garage_LastUpdate	"Mis à jour [%1$ta %1$tR]"	<clock>		(G)
 
 Switch	sAlarm_Armed		"Status"				<shield>	(Alarm)	
 Switch	Alarm_Fire		"Alarme de feu"				<fire>		(Alarm)	
 
-Number	Humidity_101	"Humiditée [%.2f %%]"					(test,Humidity)		{ mqtt="<[arduino:MyMQTT/101/0/V_HUM:state:default]" }
-Number	Temperature_101	"Temperature [%.2f °C]"			<temperature>	(test,Temperature)		{ mqtt="<[arduino:MyMQTT/101/1/V_TEMP:state:default]" }
+Number	Humidity_101	"Humiditée [%.2f %%]"						(test,Humidity)				{ mqtt="<[arduino:MyMQTT/101/0/V_HUM:state:default]" }
+Number	Temperature_101	"Temperature [%.2f °C]"				<temperature>	(test,Temperature)			{ mqtt="<[arduino:MyMQTT/101/1/V_TEMP:state:default]" }
 

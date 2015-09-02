@@ -4,7 +4,8 @@ sitemap default label="Main Menu"
 		Text item=Contact_G_Garage icon="garagedoor"		
 		Switch item=Relay_G_Garage icon="garagedoor" mappings=[ON="Go!"]		
 	}	
-	Frame label="Alarme" {
+	Frame label="Security" {
+		Text item=sPresence icon="present"
 		Switch item=sAlarm_Armed icon="shield"
 		Switch item=pNotifications
 		Text item=Alarm_Fire		
@@ -112,16 +113,20 @@ sitemap default label="Main Menu"
 		}
 	}	
 	Frame label="Presence" {
-		Text item=sPresence icon="present"		
-		Text item=pSimon icon="present"		
-		Text item=pIsabelle icon="present"		
-		Text item=pMarc icon="present"		
-		Text item=pMyriam icon="present"		
-		Text item=pGaby icon="present"		
-		Text item=Network_2600k icon="present" {
-			Switch item=Network_2600k_WOL
+		Text item=PresenceConnu icon="present" {
+			Text item=pSimon icon="present"		
+			Text item=pIsabelle icon="present"		
+			Text item=pMarc icon="present"		
+			Text item=pMyriam icon="present"		
+			Text item=pGaby icon="present"		
 		}
-		Text item=pCount icon="present"
+		Text label="Appliances" icon="present" {
+			Text item=pWii icon="present"
+			Text item=pXbox360 icon="present"
+			Text item=Network_2600k icon="present" {
+				Switch item=Network_2600k_WOL
+			}
+		}
 		Text item=pUnknownCount icon="present"	{
 			Switch item=pCount_Alarm
 			Setpoint item=pCount_Threshold minValue=0 maxValue=50 step=1

@@ -1,31 +1,33 @@
-Group	Presence									(All)
-Group	PresenceLastSeen								(All)
+Group:Switch:OR(ON,OFF) PresenceMaison  "Precences Maison [(%d)]"	<present> 	(Presence)
+Group:Switch:OR(ON,OFF) PresenceConnu  "Precences connu [(%d)]"		<present>	(Presence)
+Group	Presence									(InitOff, All)
+Group	PresenceLastSeen								(InitZero, All)
 
-Number	pGaby_Cell_LastSeen	"Gaby Cellulaire [%d]"			<present>	(PresenceLastSeen, InitZero)	{ mqtt="<[mosquitto:presence/b86ce8da70db:state:default]" }
-Number	pIsabelle_Cell_LastSeen	"Isabelle Cellulaire [%d]"		<present>	(PresenceLastSeen, InitZero)	{ mqtt="<[mosquitto:presence/00eebd9f45ab:state:default]" }
-Number	pMarc_Cell_LastSeen	"Marc Cellulaire [%d]"			<present>	(PresenceLastSeen, InitZero)	{ mqtt="<[mosquitto:presence/e899c4be0009:state:default]" }
-Number	pSimon_Cell_LastSeen	"Simon Cellulaire [%d]"			<present>	(PresenceLastSeen, InitZero)	{ mqtt="<[mosquitto:presence/9068c3a63b0e:state:default]" }
-Number	pMyriam_Cell_LastSeen	"Myriam Cellulaire [%d]"		<present>	(PresenceLastSeen, InitZero)	{ mqtt="<[mosquitto:presence/4ca56d6664e5:state:default]" }
-Number  pEtienne_Cell_LastSeen	"Etienne Cellulaire [%d]"                <present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/00180ae3a920:state:default]" }
-Number	pAmiMarc1_Cell_LastSeen	"AmiMarc1 Cellulaire [%d]"                <present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/10683f447f1d:state:default]" }
-Number  pAmiMarc2_Cell_LastSeen "AmiMarc2 Cellulaire [%d]"                <present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/843838e0687c:state:default]" }
+Number	pGaby_Cell_LastSeen	"Gaby Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/b86ce8da70db:state:default]" }
+Number	pIsabelle_Cell_LastSeen	"Isabelle Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/00eebd9f45ab:state:default]" }
+Number	pMarc_Cell_LastSeen	"Marc Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/e899c4be0009:state:default]" }
+Number	pSimon_Cell_LastSeen	"Simon Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/9068c3a63b0e:state:default]" }
+Number	pMyriam_Cell_LastSeen	"Myriam Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/4ca56d6664e5:state:default]" }
+Number  pEtienne_Cell_LastSeen	"Etienne Cellulaire [%d]"               <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/00180ae3a920:state:default]" }
+Number	pAmiMarc1_Cell_LastSeen	"AmiMarc1 Cellulaire [%d]"              <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/10683f447f1d:state:default]" }
+Number  pAmiMarc2_Cell_LastSeen "AmiMarc2 Cellulaire [%d]"       	<present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/843838e0687c:state:default]" }
 
-Number  pXbox360_LastSeen "Xbox 360 [%d]"                <present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/0025aeddd18b:state:default]" }
-Number  pWii_LastSeen "Wii [%d]"                <present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/0017abe0b8b8:state:default]" }
+Number  pXbox360_LastSeen "Xbox 360 [%d]"                		<present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/0025aeddd18b:state:default]" }
+Number  pWii_LastSeen "Wii [%d]"               		 		<present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/0017abe0b8b8:state:default]" }
 
 
-Switch	pSimon			"Simon"					<present>	(Presence, InitOff)	
-Switch	pIsabelle		"Isabelle"				<present>	(Presence, InitOff)	
-Switch	pMarc			"Marc"					<present>	(Presence, InitOff)	
-Switch	pGaby			"Gaby"					<present>	(Presence, InitOff)	
-Switch	pMyriam			"Myriam"				<present>	(Presence, InitOff)	
+Switch	pSimon			"Simon"					<present>	(PresenceMaison)	
+Switch	pIsabelle		"Isabelle"				<present>	(PresenceMaison)	
+Switch	pMarc			"Marc"					<present>	(PresenceMaison)	
+Switch	pGaby			"Gaby"					<present>	(PresenceMaison)	
+Switch	pMyriam			"Myriam"				<present>	(PresenceMaison)	
 
-Switch  pEtienne		"Etienne"				<present>       (Presence, InitOff)
-Switch	pAmiMarc1		"Ami Marc 1"                            <present>       (Presence, InitOff)
-Switch 	pAmiMarc2		"Ami Marc 2"				<present>       (Presence, InitOff)
+Switch  pEtienne		"Etienne"				<present>       (PresenceConnu)
+Switch	pAmiMarc1		"Ami Marc 1"                            <present>       (PresenceConnu)
+Switch 	pAmiMarc2		"Ami Marc 2"				<present>       (PresenceConnu)
 
-Switch 	pWii		"Wii"				<present>       (Presence, InitOff)
-Switch 	pXbox360		"Xbox 360"				<present>       (Presence, InitOff)
+Switch 	pWii			"Wii"					<present>       (Presence)
+Switch 	pXbox360		"Xbox 360"				<present>       (Presence)
 
 Number	pCount			"Presence Count [%d]"			<present>	(InitZero)			{ mqtt="<[mosquitto:presence/count:state:default]" }
 Number	pCount_Threshold	"Presence Threshold [%d]"		<present>
