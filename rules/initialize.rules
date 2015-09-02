@@ -1,3 +1,17 @@
+rule Startup
+when
+  System started
+then
+  Notify_Alert.postUpdate("OpenHAB started")
+end
+
+rule Goodbye
+when
+  System shuts down
+then
+  Notify_Alert.postUpdate("OpenHAB shutting down")
+end
+
 rule "Initialize items"
 when
         System started
