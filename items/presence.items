@@ -1,5 +1,7 @@
 Group:Switch:OR(ON,OFF) PresenceMaison  "Precences Maison [(%d)]"	<present> 	(Presence)
 Group:Switch:OR(ON,OFF) PresenceConnu  "Precences connu [(%d)]"		<present>	(Presence)
+Group:Switch:OR(ON,OFF) PresenceAppliance  "Appliances [(%d)]"	<present>	(Presence)
+
 Group	Presence									(InitOff, All)
 Group	PresenceLastSeen								(InitZero, All)
 
@@ -26,8 +28,8 @@ Switch  pEtienne		"Etienne"				<present>       (PresenceConnu)
 Switch	pAmiMarc1		"Ami Marc 1"                            <present>       (PresenceConnu)
 Switch 	pAmiMarc2		"Ami Marc 2"				<present>       (PresenceConnu)
 
-Switch 	pWii			"Wii"					<present>       (Presence)
-Switch 	pXbox360		"Xbox 360"				<present>       (Presence)
+Switch 	pWii			"Wii"					<present>       (PresenceAppliance)
+Switch 	pXbox360		"Xbox 360"				<present>       (PresenceAppliance)
 
 Number	pCount			"Presence Count [%d]"			<present>	(InitZero)			{ mqtt="<[mosquitto:presence/count:state:default]" }
 Number	pCount_Threshold	"Presence Threshold [%d]"		<present>
@@ -38,7 +40,7 @@ Number	pUnknownCount		"Unknown Presence Count [%d]"		<present>	(InitZero)			{ mq
 Switch	sPresence		"Global Presence"			<present>	(InitOff)
 Switch  pNotifications		"Notifications Presence"		<present>	(Alarm, InitOn)
 
-Switch 	Network_2600k		"PC 2600k"				<present>	(Network, InitOff)		{ nh="16.0.100.3" }
-Switch 	Network_MySensorsGW	"MySensors Gateway"			<present>	(Network, InitOff)		{ nh="16.0.100.8" }
+Switch 	Network_2600k		"PC 2600k"				<present>	(PresenceAppliance, Network, InitOff)		{ nh="16.0.100.3" }
+Switch 	Network_MySensorsGW	"MySensors Gateway"			<present>	(PresenceAppliance, Network, InitOff)		{ nh="16.0.100.8" }
 Switch 	Network_2600k_WOL	"Wake 2600k"				<present>	(Network)		{ wol="16.0.100.255#80-ee-73-43-cd-44" } 
 

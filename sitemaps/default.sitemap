@@ -113,24 +113,14 @@ sitemap default label="Main Menu"
 		}
 	}	
 	Frame label="Presence" {
-		Text item=PresenceConnu icon="present" {
-			Text item=pSimon icon="present"		
-			Text item=pIsabelle icon="present"		
-			Text item=pMarc icon="present"		
-			Text item=pMyriam icon="present"		
-			Text item=pGaby icon="present"		
-		}
-		Text label="Appliances" icon="present" {
-			Text item=pWii icon="present"
-			Text item=pXbox360 icon="present"
-			Text item=Network_2600k icon="present" {
-				Switch item=Network_2600k_WOL
-			}
-		}
+		Group item=PresenceMaison
+		Group item=PresenceAppliance
+		Group item=PresenceConnu
 		Text item=pUnknownCount icon="present"	{
 			Switch item=pCount_Alarm
 			Setpoint item=pCount_Threshold minValue=0 maxValue=50 step=1
 		}
+		Switch item=Network_2600k_WOL
 	}	
 	Frame label="Groups" {
 		Group item=PE label="Premier étage" icon="firstfloor"		
