@@ -1,0 +1,6 @@
+Group Notification
+String	Notify_Info									(Notification)		{ mqtt=">[mosquitto:openhab/notifications/info:state:*:default]" }
+String	Notify_Alert									(Notification)		{ mqtt=">[mosquitto:openhab/notifications/alert:state:*:default]" }
+String	Notify_Warn									(Notification)		{ mqtt=">[mosquitto:openhab/notifications/warn:state:*:default]" }
+String	Notify_Alarm									(Notification)		{ mqtt=">[mosquitto:openhab/notifications/alarm:state:*:default]" }
+
