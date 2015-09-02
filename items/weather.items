@@ -1,0 +1,9 @@
+Group	Weather_Chart									(Weather)	
+Number	Weather_Temperature	"Présentement [%.2f °C]"		<temperature>	(Weather_Chart)		{ weather="locationId=sherbrooke, type=temperature, property=current" }
+Number	Weather_Humidity	"Humidité extérieure [%d %%]"		<temperature>	(Weather)		{ weather="locationId=sherbrooke, type=athmosphere, property=humidity" }
+Number	Weather_Temp_Max	"Maximum [%.1f °C]"			<temperature>	(Weather_Chart)		{ weather="locationId=sherbrooke, forecast=0, type=temperature, property=max" }
+Number	Weather_Temp_Min	"Minimum [%.1f °C]"			<temperature>	(Weather_Chart)		{ weather="locationId=sherbrooke, forecast=0, type=temperature, property=min" }
+Number	Weather_Humidex		"Humidex [SCALE(humidex.scale):%s]"			(Weather)
+Number	Weather_Chart_Period	"Chart Period"
+DateTime	Weather_LastUpdate	"Mis à jour [%1$ta %1$tR]"	<clock>
+
