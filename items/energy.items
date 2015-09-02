@@ -1,0 +1,33 @@
+Group	gHEM_Eh "Energy" 						<chart>
+Group	gHEM_W  "Power"      						<chart>
+Group	gHEM_V  "Voltage"      						<chart>
+Group	gHEM_A	"Current"						<chart>
+
+Group	Energy										(All)
+
+Switch	sHEM_Eh_reset		"Reset kWh"				<energy>	(Energy)		{ zwave="2:command=METER, meter_reset=true" }
+Number	HEM_Eh			"Energy [%.2f kWh]"			<energy>	(Energy,gHEM_Eh)	{ zwave="2:command=METER, meter_scale=E_KWh" }
+Number	HEM_Ed			"Energy [%.2f kWh]"			<energy>	(Energy)
+Number	HEM_Eh1			"L2 kWh [%.2f kWh]"			<energy>	(Energy,gHEM_Eh)	{ zwave="2:1:command=METER, meter_scale=E_KWh" }
+Number	HEM_Eh2			"L1 kWh [%.2f kWh]"			<energy>	(Energy,gHEM_Eh)	{ zwave="2:2:command=METER, meter_scale=E_KWh" }
+Number	HEM_P			"Power [%.2f W]"			<energy>	(Energy,gHEM_P)		{ zwave="2:command=METER, meter_scale=E_W" }
+Number	HEM_P1			"L1 Power [%.2f W]"			<energy>	(Energy,gHEM_P)		{ zwave="2:1:command=METER, meter_scale=E_W" }
+Number	HEM_P2			"L2 Power [%.2f W]"			<energy>	(Energy,gHEM_P)		{ zwave="2:2:command=METER, meter_scale=E_W" }
+Number	HEM_V			"Voltage [%.2f V]"			<energy>	(Energy,gHEM_V)		{ zwave="2:command=METER, meter_scale=E_V, refresh_interval=30" }
+Number	HEM_V1			"L1 Voltage [%.2f V]"			<energy>	(Energy,gHEM_V)		{ zwave="2:1:command=METER, meter_scale=E_V" }
+Number	HEM_V2			"L2 Voltage [%.2f V]"			<energy>	(Energy,gHEM_V)		{ zwave="2:2:command=METER, meter_scale=E_V" }
+Number	HEM_C			"Current [%.2f A]"			<energy>	(Energy,gHEM_C)		{ zwave="2:command=METER, meter_scale=E_A, refresh_interval=30" }
+Number	HEM_C1			"L1 Current [%.2f A]"			<energy>	(Energy,gHEM_C)		{ zwave="2:1:command=METER, meter_scale=E_A" }
+Number	HEM_C2			"L2 Current [%.2f A]"			<energy>	(Energy,gHEM_C)		{ zwave="2:2:command=METER, meter_scale=E_A" }
+
+Number Energy_Yesterday_cost 	"Yesterday's Hydro [%.2f $]" 		<energy>	(Energy)		{ http="<[http://localhost/?query=yesterday:3600000:REGEX((.*?))]" }
+Number Energy_Today_cost 	"Today's Hydro [%.2f $]" 		<energy>	(Energy)		{ http="<[http://localhost/?query=today:60000:REGEX((.*?))]" }
+String Energy_Today		"Energy [%s]"				<energy>	(Energy)
+String Energy_Yesterday		"Energy (Yesterday) [%s]"		<energy>	(Energy)
+Number Energy_CurrentMonth_kwh	"Current Month [%.2f kwh]"		<energy>	(Energy)		{ http="<[http://localhost/?query=currentmonth:3600000:REGEX(kwh: (.*?)<br>.*)]" }
+Number Energy_CurrentMonth_cost	"Current Month [%.2f $]"		<energy>	(Energy)		{ http="<[http://localhost/?query=currentmonth:3600000:REGEX(.*cost: (.*?))]" }
+String Energy_CurrentMonth	"Current Month [%s]"			<energy>	(Energy) 
+Number Energy_LastMonth_kwh	"Last Month [%.2f kwh]"			<energy>	(Energy) 		{ http="<[http://localhost/?query=lastmonth:3600000:REGEX(kwh: (.*?)<br>.*)]" }
+Number Energy_LastMonth_cost	"Last Month [%.2f $]"			<energy>	(Energy) 		{ http="<[http://localhost/?query=lastmonth:3600000:REGEX(.*cost: (.*?))]" }
+String Energy_LastMonth		"Last Month [%s]"			<energy>	(Energy) 
+

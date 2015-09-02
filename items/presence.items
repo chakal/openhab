@@ -1,0 +1,41 @@
+Group	Presence									(All)
+Group	PresenceLastSeen								(All)
+
+Number	pGaby_Cell_LastSeen	"Gaby Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/b86ce8da70db:state:default]" }
+Number	pIsabelle_Cell_LastSeen	"Isabelle Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/00eebd9f45ab:state:default]" }
+Number	pMarc_Cell_LastSeen	"Marc Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/e899c4be0009:state:default]" }
+Number	pSimon_Cell_LastSeen	"Simon Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/9068c3a63b0e:state:default]" }
+Number	pMyriam_Cell_LastSeen	"Myriam Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/4ca56d6664e5:state:default]" }
+Number  pEtienne_Cell_LastSeen	"Etienne Cellulaire [%d]"                <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/00180ae3a920:state:default]" }
+Number	pAmiMarc1_Cell_LastSeen	"AmiMarc1 Cellulaire [%d]"                <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/10683f447f1d:state:default]" }
+Number  pAmiMarc2_Cell_LastSeen "AmiMarc2 Cellulaire [%d]"                <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/843838e0687c:state:default]" }
+
+Number  pXbox360_LastSeen "Xbox 360 [%d]"                <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/0025aeddd18b:state:default]" }
+Number  pWii_LastSeen "Wii [%d]"                <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/0017abe0b8b8:state:default]" }
+
+
+Switch	pSimon			"Simon"					<present>	(Presence)	
+Switch	pIsabelle		"Isabelle"				<present>	(Presence)	
+Switch	pMarc			"Marc"					<present>	(Presence)	
+Switch	pGaby			"Gaby"					<present>	(Presence)	
+Switch	pMyriam			"Myriam"				<present>	(Presence)	
+
+Switch  pEtienne		"Etienne"				<present>       (Presence)
+Switch	pAmiMarc1		"Ami Marc 1"                            <present>       (Presence)
+Switch 	pAmiMarc2		"Ami Marc 2"				<present>       (Presence)
+
+Switch 	pWii		"Wii"				<present>       (Presence)
+Switch 	pXbox360		"Xbox 360"				<present>       (Presence)
+
+Number	pCount			"Presence Count [%d]"			<present>				{ mqtt="<[mosquitto:presence/count:state:default]" }
+Number	pCount_Threshold	"Presence Threshold [%d]"		<present>
+Switch  pCount_Alarm		"Notifications"
+
+Number	pUnknownCount		"Unknown Presence Count [%d]"		<present>				{ mqtt="<[mosquitto:presence/unknowncount:state:default]" }
+
+Switch	sPresence		"Global Presence"			<present>
+Switch  pNotifications		"Notifications Presence"		<present>	(Alarm)
+
+Switch 	Network_2600k		"PC 2600k"				<present>	(Network)		{ nh="16.0.100.3" }
+Switch 	Network_2600k_WOL	"Wake 2600k"				<present>	(Network)		{ wol="16.0.100.255#80-ee-73-43-cd-44" } 
+
