@@ -1,0 +1,115 @@
+import org.joda.time.*
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+import org.openhab.model.script.actions.*
+
+
+rule "Garage Ouvert"
+when
+  Item Contact_G_Garage received update
+then
+  if (sAlarm_Armed.state == ON) Notify_Alert.postUpdate("Garage door " + Contact_G_Garage.state)
+  //if ((pSimon.state == OFF) or (sAlarm_Armed.state == ON)) Notify_Alert.postUpdate("Garage door OPEN")
+end
+
+/*
+rule "test"
+when
+ Item sAlarm_Armed received update
+then
+ Notify_Alert.postUpdate("This is an alert notification")
+end
+*/
+
+rule "Fire Detection"
+when
+ Item Temperature received update
+then
+ if (Temperature.members.filter(s | s.state > 40).size > 0) {        
+   if (Alarm_Fire.state == OFF) {
+     logInfo("notifications.rules", "Fire alarm tripped by temperature sensor!")
+     Notify_Alert.postUpdate("Fire alarm tripped by temperature sensor!")
+     Alarm_Fire.postUpdate(ON)
+   }       
+ }
+end
+
+rule "Sensor status: Garage"
+when
+ Time cron "*/30 * * * * ?"
+then
+ var now = new DateTimeType
+// var LastUpdate = new DateTimeType(Garage_LastUpdate.state)
+// logInfo("notifications.rules", LastUpdate)
+
+// if (Garage_LastUpdate
+  //Item Garage_LastUpdate received update
+
+end
+
+rule "Enable presence notifications"
+when
+ Item pSimon changed or
+ System started
+then
+ if (pSimon.state == OFF) sendCommand(pNotifications, ON)
+ else sendCommand(pNotifications, OFF)
+end
+
+rule "Notification Presence: Isabelle"
+when
+ Item pIsabelle changed
+then
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("Isabelle is " + pIsabelle.state)
+end
+
+rule "Notification Presence: Marc"
+when
+ Item pMarc changed
+then
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("Marc is " + pMarc.state)
+end
+
+rule "Notification Presence: Myriam"
+when
+ Item pMyriam changed
+then
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("Myriam is " + pMyriam.state)
+end
+
+
+rule "Notification Presence: Gaby"
+when
+ Item pGaby changed
+then
+ if (sPresence.state == ON) Notify_Alert.postUpdate("Gaby is " + pGaby.state)
+end
+
+rule "Notification Presence: Etienne"
+when
+ Item pEtienne changed
+then
+ if (sPresence.state == ON) Notify_Alert.postUpdate("Etienne is " + pEtienne.state)
+end
+
+rule "Notification Presence: AmiMarc1"
+when
+ Item pAmiMarc1 changed
+then
+ if (sPresence.state == ON) Notify_Alert.postUpdate("AmiMarc1 is " + pAmiMarc1.state)
+end
+
+rule "Notification Presence: AmiMarc2"
+when
+ Item pAmiMarc2 changed
+then
+ if (sPresence.state == ON) Notify_Alert.postUpdate("AmiMarc2 is " + pAmiMarc2.state)
+end
+
+
+rule "Notification Presence Count Alarm"
+when
+ Item pUnknownCount changed
+then
+ if ((pCount_Alarm.state == ON) && (pUnknownCount.state >= pCount_Threshold.state)) Notify_Alert.postUpdate("Presence threshold(" + pCount_Threshold.state + ") reached, " + pUnknownCount.state + " devices detected")
+end

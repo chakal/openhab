@@ -1,0 +1,51 @@
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+import org.openhab.model.script.actions.*
+
+
+rule "Relais Garage"
+when
+  Item Relay_G_Garage changed from OFF to ON
+then
+  sendCommand(Relay_G_Garage, OFF)
+end
+
+
+// Creates an item that stores the last update time of this item
+rule "Records last weather update time"
+when
+  Item Weather_Temperature received update
+then
+  postUpdate(Weather_LastUpdate, new DateTimeType())
+end
+
+rule "Enregistre dernier update Garage"
+when
+ Item Temperature_G_Garage received update or
+ Item Humidity_G_Garage received update or 
+ Item Contact_G_Garage received update
+then
+ postUpdate(Garage_LastUpdate, new DateTimeType())
+end
+
+rule "Compute humidex" when Item Weather_Temperature changed or
+ Item Weather_Humidity changed 
+then
+ var Number T = Weather_Temperature.state as DecimalType
+ var Number H = Weather_Humidity.state as DecimalType
+ var Number x = 7.5 * T/(237.7 + T)
+ var Number e = 6.112 * Math::pow(10, x.doubleValue) * H/100
+ var Number humidex = T + (new Double(5) / new Double(9)) * (e - 10)
+ Weather_Humidex.postUpdate(humidex) 
+end
+
+rule "Garage - Combine Temp and Hum"
+when
+  System started or
+  Item Humidity_G_Garage changed or
+  Item Temperature_G_Garage changed
+then
+  postUpdate(Garage, String::format("%.2f", (Temperature_G_Garage.state as DecimalType).floatValue()) + " °C / " + String::format("%.2f", (Humidity_G_Garage.state as DecimalType).floatValue()) + " %")
+end
+
+

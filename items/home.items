@@ -1,0 +1,118 @@
+Group	All
+Group	Maison										(All)
+Group	Weather										(All)
+Group	G										(All)
+Group	PE										(All)
+Group	SS										(All)
+Group	Remise										(All)
+Group	Presence									(All)
+Group	PresenceLastSeen								(All)
+Group	Alarm										(All)
+Group	Humidity									(All)
+Group	Energy										(All)
+Group	Network										(All)
+Group   test	(All)
+
+Group	gHEM_Eh "Energy" 						<chart>
+Group	gHEM_W  "Power"      						<chart>
+Group	gHEM_V  "Voltage"      						<chart>
+Group	gHEM_A	"Current"						<chart>
+
+Group:Switch:OR(ON,OFF)	Lights	"All Lights [(%d)]"					(All)	
+Group:Switch:OR(ON,OFF)	Heating	"No. of Active Heatings [(%d)]"		<heating>	(All)	
+Group:Number:AVG()	Temperature	"Avg. Room Temperature [%.1f °C]"	<temperature>	(Status)	
+Group:Contact:OR(OPEN,CLOSED)	Windows	"Open windows [(%d)]"		<contact>	(Alarme)	
+Group:Contact:OR(OPEN,CLOSED)	Doors	"Open doors [(%d)]"		<contact>	(Alarme)	
+
+Group	Weather_Chart									(Weather)	
+Number	Weather_Temperature	"Présentement [%.2f °C]"		<temperature>	(Weather_Chart)		{ weather="locationId=sherbrooke, type=temperature, property=current" }
+Number	Weather_Humidity	"Humidité extérieure [%d %%]"		<temperature>	(Weather)		{ weather="locationId=sherbrooke, type=athmosphere, property=humidity" }
+Number	Weather_Temp_Max	"Maximum [%.1f °C]"			<temperature>	(Weather_Chart)		{ weather="locationId=sherbrooke, forecast=0, type=temperature, property=max" }
+Number	Weather_Temp_Min	"Minimum [%.1f °C]"			<temperature>	(Weather_Chart)		{ weather="locationId=sherbrooke, forecast=0, type=temperature, property=min" }
+Number	Weather_Humidex		"Humidex [SCALE(humidex.scale):%s]"			(Weather)
+Number	Weather_Chart_Period	"Chart Period"
+DateTime	Weather_LastUpdate	"Mis à jour [%1$ta %1$tR]"	<clock>
+
+String	Notify_Info									(Notification)		{ mqtt=">[mosquitto:openhab/notifications/info:state:*:default]" }
+String	Notify_Alert									(Notification)		{ mqtt=">[mosquitto:openhab/notifications/alert:state:*:default]" }
+String	Notify_Warn									(Notification)		{ mqtt=">[mosquitto:openhab/notifications/warn:state:*:default]" }
+String	Notify_Alarm									(Notification)		{ mqtt=">[mosquitto:openhab/notifications/alarm:state:*:default]" }
+
+String 	Garage 			"Garage [%s]"				<garage>	(G)
+Number	Temperature_Chart_Garage
+Number	Humidity_G_Garage	"Humiditée [%.2f %%]"					(G,Humidity)		{ mqtt="<[arduino:MyMQTT/100/0/V_HUM:state:default]" }
+Number	Temperature_G_Garage	"Temperature [%.2f °C]"			<temperature>	(G,Temperature)		{ mqtt="<[arduino:MyMQTT/100/1/V_TEMP:state:default]" }
+Switch	Relay_G_Garage		"Manette"				<garagedoor>	(G)			{ autoupdate="false", mqtt=">[arduino:MyMQTT/100/3/V_LIGHT:command:ON:1]" }
+Contact	Contact_G_Garage	"Garage [MAP(contact-display.map):%s]"	<garagedoor>	(G,Doors)		{ mqtt="<[arduino:MyMQTT/100/2/V_TRIPPED:state:MAP(contact.map)]" }
+DateTime	Garage_LastUpdate	"Mis à jour [%1$ta %1$tR]"	<clock>		(G)
+
+Switch	sAlarm_Armed		"Status"				<shield>	(Alarm)	
+Switch	Alarm_Fire		"Alarme de feu"				<fire>		(Alarm)	
+
+Number	pGaby_Cell_LastSeen	"Gaby Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/b86ce8da70db:state:default]" }
+Number	pIsabelle_Cell_LastSeen	"Isabelle Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/00eebd9f45ab:state:default]" }
+Number	pMarc_Cell_LastSeen	"Marc Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/e899c4be0009:state:default]" }
+Number	pSimon_Cell_LastSeen	"Simon Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/9068c3a63b0e:state:default]" }
+Number	pMyriam_Cell_LastSeen	"Myriam Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/4ca56d6664e5:state:default]" }
+Number  pEtienne_Cell_LastSeen	"Etienne Cellulaire [%d]"                <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/00180ae3a920:state:default]" }
+Number	pAmiMarc1_Cell_LastSeen	"AmiMarc1 Cellulaire [%d]"                <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/10683f447f1d:state:default]" }
+Number  pAmiMarc2_Cell_LastSeen "AmiMarc2 Cellulaire [%d]"                <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/843838e0687c:state:default]" }
+
+Number  pXbox360_LastSeen "Xbox 360 [%d]"                <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/0025aeddd18b:state:default]" }
+Number  pWii_LastSeen "Wii [%d]"                <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/0017abe0b8b8:state:default]" }
+
+
+Switch	pSimon			"Simon"					<present>	(Presence)	
+Switch	pIsabelle		"Isabelle"				<present>	(Presence)	
+Switch	pMarc			"Marc"					<present>	(Presence)	
+Switch	pGaby			"Gaby"					<present>	(Presence)	
+Switch	pMyriam			"Myriam"				<present>	(Presence)	
+
+Switch  pEtienne		"Etienne"				<present>       (Presence)
+Switch	pAmiMarc1		"Ami Marc 1"                            <present>       (Presence)
+Switch 	pAmiMarc2		"Ami Marc 2"				<present>       (Presence)
+
+Switch 	pWii		"Wii"				<present>       (Presence)
+Switch 	pXbox360		"Xbox 360"				<present>       (Presence)
+
+Number	pCount			"Presence Count [%d]"			<present>				{ mqtt="<[mosquitto:presence/count:state:default]" }
+Number	pCount_Threshold	"Presence Threshold [%d]"		<present>
+Switch  pCount_Alarm		"Notifications"
+
+Number	pUnknownCount		"Unknown Presence Count [%d]"		<present>				{ mqtt="<[mosquitto:presence/unknowncount:state:default]" }
+
+Switch	sPresence		"Global Presence"			<present>
+Switch  pNotifications		"Notifications Presence"		<present>	(Alarm)
+
+Switch 	Network_2600k		"PC 2600k"				<present>	(Network)		{ nh="16.0.100.3" }
+Switch 	Network_2600k_WOL	"Wake 2600k"				<present>	(Network)		{ wol="16.0.100.255#80-ee-73-43-cd-44" }
+
+Switch	sHEM_Eh_reset		"Reset kWh"				<energy>	(Energy)		{ zwave="2:command=METER, meter_reset=true" }
+Number	HEM_Eh			"Energy [%.2f kWh]"			<energy>	(Energy,gHEM_Eh)	{ zwave="2:command=METER, meter_scale=E_KWh" }
+Number	HEM_Ed			"Energy [%.2f kWh]"			<energy>	(Energy)
+Number	HEM_Eh1			"L2 kWh [%.2f kWh]"			<energy>	(Energy,gHEM_Eh)	{ zwave="2:1:command=METER, meter_scale=E_KWh" }
+Number	HEM_Eh2			"L1 kWh [%.2f kWh]"			<energy>	(Energy,gHEM_Eh)	{ zwave="2:2:command=METER, meter_scale=E_KWh" }
+Number	HEM_P			"Power [%.2f W]"			<energy>	(Energy,gHEM_P)		{ zwave="2:command=METER, meter_scale=E_W" }
+Number	HEM_P1			"L1 Power [%.2f W]"			<energy>	(Energy,gHEM_P)		{ zwave="2:1:command=METER, meter_scale=E_W" }
+Number	HEM_P2			"L2 Power [%.2f W]"			<energy>	(Energy,gHEM_P)		{ zwave="2:2:command=METER, meter_scale=E_W" }
+Number	HEM_V			"Voltage [%.2f V]"			<energy>	(Energy,gHEM_V)		{ zwave="2:command=METER, meter_scale=E_V, refresh_interval=30" }
+Number	HEM_V1			"L1 Voltage [%.2f V]"			<energy>	(Energy,gHEM_V)		{ zwave="2:1:command=METER, meter_scale=E_V" }
+Number	HEM_V2			"L2 Voltage [%.2f V]"			<energy>	(Energy,gHEM_V)		{ zwave="2:2:command=METER, meter_scale=E_V" }
+Number	HEM_C			"Current [%.2f A]"			<energy>	(Energy,gHEM_C)		{ zwave="2:command=METER, meter_scale=E_A, refresh_interval=30" }
+Number	HEM_C1			"L1 Current [%.2f A]"			<energy>	(Energy,gHEM_C)		{ zwave="2:1:command=METER, meter_scale=E_A" }
+Number	HEM_C2			"L2 Current [%.2f A]"			<energy>	(Energy,gHEM_C)		{ zwave="2:2:command=METER, meter_scale=E_A" }
+
+Number Energy_Yesterday_cost 	"Yesterday's Hydro [%.2f $]" 		<energy>	(Energy)		{ http="<[http://localhost/?query=yesterday:3600000:REGEX((.*?))]" }
+Number Energy_Today_cost 	"Today's Hydro [%.2f $]" 		<energy>	(Energy)		{ http="<[http://localhost/?query=today:60000:REGEX((.*?))]" }
+String Energy_Today		"Energy [%s]"				<energy>	(Energy)
+String Energy_Yesterday		"Energy (Yesterday) [%s]"		<energy>	(Energy)
+Number Energy_CurrentMonth_kwh	"Current Month [%.2f kwh]"		<energy>	(Energy)		{ http="<[http://localhost/?query=currentmonth:3600000:REGEX(kwh: (.*?)<br>.*)]" }
+Number Energy_CurrentMonth_cost	"Current Month [%.2f $]"		<energy>	(Energy)		{ http="<[http://localhost/?query=currentmonth:3600000:REGEX(.*cost: (.*?))]" }
+String Energy_CurrentMonth	"Current Month [%s]"			<energy>	(Energy) 
+Number Energy_LastMonth_kwh	"Last Month [%.2f kwh]"			<energy>	(Energy) 		{ http="<[http://localhost/?query=lastmonth:3600000:REGEX(kwh: (.*?)<br>.*)]" }
+Number Energy_LastMonth_cost	"Last Month [%.2f $]"			<energy>	(Energy) 		{ http="<[http://localhost/?query=lastmonth:3600000:REGEX(.*cost: (.*?))]" }
+String Energy_LastMonth		"Last Month [%s]"			<energy>	(Energy) 
+
+Number	Humidity_101	"Humiditée [%.2f %%]"					(test,Humidity)		{ mqtt="<[arduino:MyMQTT/101/0/V_HUM:state:default]" }
+Number	Temperature_101	"Temperature [%.2f °C]"			<temperature>	(test,Temperature)		{ mqtt="<[arduino:MyMQTT/101/1/V_TEMP:state:default]" }
+

@@ -1,0 +1,186 @@
+sitemap default label="Main Menu"
+{
+	Frame label="Garage" {
+		Text item=Contact_G_Garage icon="garagedoor"		
+		Switch item=Relay_G_Garage icon="garagedoor" mappings=[ON="Go!"]		
+	}	
+	Frame label="Alarme" {
+		Switch item=sAlarm_Armed icon="shield"		
+		Text item=Alarm_Fire		
+	}	
+	Frame label="Méteo" {
+		Text item=Weather_Temperature valuecolor=[Weather_LastUpdate==Uninitialized="lightgray", Weather_LastUpdate>90="lightgray", >25="orange", >15="green", >5="orange", <=5="blue"] {
+			Frame {
+				Text item=Weather_Temp_Max valuecolor=[>25="orange", >15="green", >5="orange", <=5="blue"]				
+				Text item=Weather_Temp_Min valuecolor=[>25="orange", >15="green", >5="orange", <=5="blue"]				
+				Text item=Weather_Humidity				
+				Text item=Weather_Humidex				
+				Text item=Weather_LastUpdate valuecolor=[Weather_LastUpdate>120="orange", Weather_LastUpdate>300="red"] visibility=[Weather_LastUpdate>30]				
+			}			
+			Frame {
+				Switch item=Weather_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]				
+				Chart item=Weather_Chart period=h refresh=6000 visibility=[Weather_Chart_Period==0, Weather_Chart_Period==Uninitialized]				
+				Chart item=Weather_Chart period=D refresh=30000 visibility=[Weather_Chart_Period==1]				
+				Text item=Weather_Temp_Max				
+				Chart item=Weather_Chart period=W refresh=30000 visibility=[Weather_Chart_Period==2]				
+				Text item=Weather_Temp_Min				
+			}			
+		}		
+	}	
+	Frame label="Charts" {
+		Text item=Temperature_G_Garage label="Garage [%.1f °C]" icon="garage" {
+			Text item=Temperature_G_Garage label="Temperature [%.1f C]" icon="chart" valuecolor=[>25="red", >6="green", <6="orange", <=2="blue", <0="red"] {
+				Text label="Hourly"				
+				Chart item=Temperature_G_Garage period=h refresh=6000				
+				Text label="Daily"				
+				Chart item=Temperature_G_Garage period=D refresh=30000				
+				Text label="Weekly"				
+				Chart item=Temperature_G_Garage period=W refresh=30000				
+			}			
+			Text item=Humidity_G_Garage label="Humiditée [%.1f %%]" icon="chart" valuecolor=[>70="red", <70="green", <20="orange"] {
+				Text label="Hourly"				
+				Chart item=Humidity_G_Garage period=h refresh=6000				
+				Text label="Daily"				
+				Chart item=Humidity_G_Garage period=D refresh=30000				
+				Text label="Weekly"				
+				Chart item=Humidity_G_Garage period=W refresh=30000				
+			}			
+		}		
+		Text item=HEM_Eh label="Energy [%.3f kWh]" icon="energy" {
+			Text item=HEM_Eh label="Energy [%.3f kWh]" {
+				Text label="Hourly"				
+				Chart item=HEM_Eh period=h refresh=6000				
+				Text label="Daily"				
+				Chart item=HEM_Eh period=D refresh=30000				
+				Text label="Weekly"				
+				Chart item=HEM_Eh period=W refresh=30000				
+				Text label="Monthly"				
+				Chart item=HEM_Eh period=M refresh=30000				
+			}			
+			Text item=HEM_V label="Voltage [%.2f V]" {
+				Text label="Hourly"				
+				Chart item=HEM_V period=h refresh=6000				
+				Text label="Daily"				
+				Chart item=HEM_V period=D refresh=30000				
+				Text label="Weekly"				
+				Chart item=HEM_V period=W refresh=30000				
+				Text label="Monthly"				
+				Chart item=HEM_V period=M refresh=30000				
+			}			
+			Text item=HEM_C label="Current [%.2f A]" {
+				Text label="Hourly"				
+				Chart item=HEM_C period=h refresh=6000				
+				Text label="Daily"				
+				Chart item=HEM_C period=D refresh=30000				
+				Text label="Weekly"				
+				Chart item=HEM_C period=W refresh=30000				
+				Text label="Monthly"				
+				Chart item=HEM_C period=M refresh=30000				
+			}			
+			Text item=HEM_P label="Power [%.2f W]" {
+				Text label="Hourly"				
+				Chart item=HEM_P period=h refresh=6000				
+				Text label="Daily"				
+				Chart item=HEM_P period=D refresh=30000				
+				Text label="Weekly"				
+				Chart item=HEM_P period=W refresh=30000				
+				Text label="Monthly"				
+				Chart item=HEM_P period=M refresh=30000				
+			}			
+		}		
+	}	
+	Frame label="Presence" {
+		Text item=pSimon icon="present"		
+		Text item=pIsabelle icon="present"		
+		Text item=pMarc icon="present"		
+		Text item=pGaby icon="present"		
+		Text item=sPresence icon="present"		
+	}	
+	Frame label="Groups" {
+		Group item=PE label="Premier étage" icon="firstfloor"		
+		Group item=SS label="Sous-sol" icon="groundfloor"		
+		Group item=G label="Garage" icon="garage" {
+			Text item=Humidity_G_Garage			
+			Text item=Temperature_G_Garage			
+			Switch item=Relay_G_Garage			
+			Text item=Contact_G_Garage			
+			Text item=Garage_LastUpdate			
+		}		
+		Group item=Remise label="Remise" icon="garden"		
+		Group item=Energy label="Energy" icon="energy" {
+			Switch item=sHEM_Eh_reset			
+			Text item=HEM_Eh			
+			Text item=HEM_Eh1			
+			Text item=HEM_Eh2			
+			Text item=HEM_P			
+			Text item=HEM_P1			
+			Text item=HEM_P2			
+			Text item=HEM_V			
+			Text item=HEM_V1			
+			Text item=HEM_V2			
+			Text item=HEM_C			
+			Text item=HEM_C1			
+			Text item=HEM_C2			
+			Text item=HEM_Ver			
+		}		
+		Group item=All label="All" icon="attic" {
+			Group item=Maison			
+			Group item=Weather {
+				Group item=Weather_Chart {
+					Text item=Weather_Temperature					
+					Text item=Weather_Temp_Max					
+					Text item=Weather_Temp_Min					
+				}				
+				Text item=Weather_Humidity				
+				Text item=Weather_Humidex				
+			}			
+			Group item=G {
+				Text item=Humidity_G_Garage				
+				Text item=Temperature_G_Garage				
+				Switch item=Relay_G_Garage				
+				Text item=Contact_G_Garage				
+				Text item=Garage_LastUpdate				
+			}			
+			Group item=PE			
+			Group item=SS			
+			Group item=Remise			
+			Group item=Presence {
+				Switch item=pSimon				
+				Switch item=pIsabelle				
+				Switch item=pMarc				
+				Switch item=pGaby				
+			}			
+			Group item=PresenceLastSeen {
+				Text item=pGaby_Cell_LastSeen				
+				Text item=pIsabelle_Cell_LastSeen				
+				Text item=pMarc_Cell_LastSeen				
+				Text item=pSimon_Cell_LastSeen				
+			}			
+			Group item=Alarm {
+				Switch item=sAlarm_Armed				
+				Switch item=Alarm_Fire				
+			}			
+			Group item=Humidity {
+				Text item=Humidity_G_Garage				
+			}			
+			Group item=Energy {
+				Switch item=sHEM_Eh_reset				
+				Text item=HEM_Eh				
+				Text item=HEM_Eh1				
+				Text item=HEM_Eh2				
+				Text item=HEM_P				
+				Text item=HEM_P1				
+				Text item=HEM_P2				
+				Text item=HEM_V				
+				Text item=HEM_V1				
+				Text item=HEM_V2				
+				Text item=HEM_C				
+				Text item=HEM_C1				
+				Text item=HEM_C2				
+				Text item=HEM_Ver				
+			}			
+			Group item=Lights			
+			Group item=Heating			
+		}		
+	}	
+}

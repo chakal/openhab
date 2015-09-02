@@ -1,0 +1,6 @@
+openhab.cfg
+users.cfg
+openhab_default.cfg.old
+logback.xml
+logback_debug.xml
+

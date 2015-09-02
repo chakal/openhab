@@ -1,0 +1,127 @@
+sitemap default label="Main Menu"
+{
+	Frame label="Garage" {
+		Text item=Contact_G_Garage icon="garagedoor"		
+		Switch item=Relay_G_Garage icon="garagedoor" mappings=[ON="Go!"]		
+	}	
+	Frame label="Alarme" {
+		Switch item=sAlarm_Armed icon="shield"		
+		Text item=Alarm_Fire		
+	}	
+	Frame label="Méteo" {
+		Text item=Weather_Temperature valuecolor=[Weather_LastUpdate==Uninitialized="lightgray", Weather_LastUpdate>90="lightgray", >25="orange", >15="green", >5="orange", <=5="blue"] {
+			Frame {
+				Text item=Weather_Temp_Max valuecolor=[>25="orange", >15="green", >5="orange", <=5="blue"]				
+				Text item=Weather_Temp_Min valuecolor=[>25="orange", >15="green", >5="orange", <=5="blue"]				
+				Text item=Weather_Humidity				
+				Text item=Weather_Humidex				
+				Text item=Weather_LastUpdate valuecolor=[Weather_LastUpdate>120="orange", Weather_LastUpdate>300="red"] visibility=[Weather_LastUpdate>30]				
+			}			
+			Frame {
+				Switch item=Weather_Chart_Period label="Chart Period" mappings=[0="Hour", 1="Day", 2="Week"]				
+				Chart item=Weather_Chart period=4h refresh=6000 visibility=[Weather_Chart_Period==0, Weather_Chart_Period==Uninitialized] service="mysql"
+				Chart item=Weather_Chart period=D refresh=30000 visibility=[Weather_Chart_Period==1] service="mysql"
+				Text item=Weather_Temp_Max				
+				Chart item=Weather_Chart period=W refresh=30000 visibility=[Weather_Chart_Period==2] service="mysql"
+				Text item=Weather_Temp_Min				
+			}			
+		}		
+	}	
+	Frame label="Charts" {
+		Text item=Garage {
+			Text item=Temperature_G_Garage label="Temperature [%.1f C]" icon="chart" valuecolor=[>25="red", >6="green", <6="orange", <=2="blue", <0="red"] {
+				Text label="Hourly" icon="chart"				
+				Chart item=Temperature_G_Garage period=4h refresh=6000 service="mysql"
+				Text label="Daily" icon="chart"				
+				Chart item=Temperature_G_Garage period=D refresh=30000 service="mysql"
+				Text label="Weekly" icon="chart"
+				Chart item=Temperature_G_Garage period=W refresh=30000 service="mysql"
+			}			
+			Text item=Humidity_G_Garage label="Humiditée [%.1f %%]" icon="chart" valuecolor=[>70="red", <70="green", <20="orange"] {
+				Text label="Hourly" icon="chart"		
+				Chart item=Humidity_G_Garage period=4h refresh=6000 service="mysql"
+				Text label="Daily" icon="chart"		
+				Chart item=Humidity_G_Garage period=D refresh=30000 service="mysql"
+				Text label="Weekly" icon="chart"			
+				Chart item=Humidity_G_Garage period=W refresh=30000 service="mysql"
+			}			
+		}		
+		Text label="Mobile sensor" {
+			Text item=Temperature_101 {
+				Text label="Hourly" icon="chart"				
+				Chart item=Temperature_101 period=4h refresh=6000 service="mysql"
+				Text label="Daily" icon="chart"				
+				Chart item=Temperature_101 period=D refresh=30000 service="mysql"
+			}
+			Text item=Humidity_101 {
+				Text label="Hourly" icon="chart"
+				Chart item=Humidity_101 period=4h refresh=6000 service="mysql"
+				Text label="Daily" icon="chart"	
+				Chart item=Humidity_101 period=D refresh=30000 service="mysql"
+			}
+		}
+		Text item=Energy_Today icon="energy" {
+			Text item=HEM_Eh label="Energy [%.3f kWh]" {
+				Text label="Hourly" icon="chart"		
+				Chart item=HEM_Eh period=4h refresh=6000 service="mysql"
+				Text label="Daily" icon="chart"		
+				Chart item=HEM_Eh period=D refresh=30000 service="mysql"
+				Text label="Weekly" icon="chart"			
+				Chart item=HEM_Eh period=W refresh=30000 service="mysql"
+				Text label="Monthly" icon="chart"				
+				Chart item=HEM_Eh period=M refresh=30000 service="mysql"
+			}			
+			Text item=HEM_V label="Voltage [%.2f V]" valuecolor=[<=118="red", <120="orange", >=120="green", >=122="orange", >124="blue"] {
+				Text label="Hourly" icon="chart"		
+				Chart item=HEM_V period=4h refresh=6000 service="mysql"
+				Text label="Daily" icon="chart"		
+				Chart item=HEM_V period=D refresh=30000 service="mysql"
+				Text label="Weekly" icon="chart"			
+				Chart item=HEM_V period=W refresh=30000 service="mysql"
+				Text label="Monthly" icon="chart"		
+				Chart item=HEM_V period=M refresh=30000 service="mysql"
+			}			
+			Text item=HEM_C label="Current [%.2f A]" valuecolor=[<10="green", >=10="orange", >20="red"] {
+				Text label="Hourly" icon="chart"		
+				Chart item=HEM_C period=4h refresh=6000 service="mysql"
+				Text label="Daily" icon="chart"		
+				Chart item=HEM_C period=D refresh=30000 service="mysql"
+				Text label="Weekly" icon="chart"			
+				Chart item=HEM_C period=W refresh=30000 service="mysql"
+				Text label="Monthly" icon="chart"		
+				Chart item=HEM_C period=M refresh=30000 service="mysql"
+			}
+			Text item=HEM_P label="Power [%.2f W]" valuecolor=[<1200="green",>1200="orange",>2400="red"] {
+				Text label="Hourly" icon="chart"		
+				Chart item=HEM_P period=4h refresh=6000 service="mysql"
+				Text label="Daily" icon="chart"		
+				Chart item=HEM_P period=D refresh=30000 service="mysql"
+				Text label="Weekly" icon="chart"			
+				Chart item=HEM_P period=W refresh=30000 service="mysql"
+				Text label="Monthly" icon="chart"		
+				Chart item=HEM_P period=M refresh=30000 service="mysql"
+			}			
+			Text item=Energy_Yesterday
+			Text item=Energy_CurrentMonth
+			Text item=Energy_LastMonth
+		}
+	}	
+	Frame label="Presence" {
+		Text item=sPresence icon="present"		
+		Text item=pSimon icon="present"		
+		Text item=pIsabelle icon="present"		
+		Text item=pMarc icon="present"		
+		Text item=pMyriam icon="present"		
+		Text item=pGaby icon="present"		
+		Text item=Network_2600k icon="present"		
+	}	
+	Frame label="Groups" {
+		Group item=PE label="Premier étage" icon="firstfloor"		
+		Group item=SS label="Sous-sol" icon="groundfloor"		
+		Group item=G label="Garage" icon="garage" 
+		Group item=Remise label="Remise" icon="garden"		
+		Group item=Energy label="Energy" icon="energy" 
+		Group item=test label="test" icon="energy" 
+		Group item=All label="All" icon="attic" 
+	}	
+}

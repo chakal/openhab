@@ -1,0 +1,81 @@
+import org.joda.time
+import org.openhab.model.script.actions.Timer
+import java.util.*
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+import org.openhab.model.script.actions.*
+
+var Number idle = 5*60 // idle time in seconds before considered not present
+
+/*
+rule "Presence: Startup"
+when
+ System started
+then
+
+  pEtienne_Cell_LastSeen.postUpdate(0)
+  pAmiMarc1_Cell_LastSeen.postUpdate(0)
+  pAmiMarc2_Cell_LastSeen.postUpdate(0)
+  pWii_LastSeen.postUpdate(0)
+  pXbox360_LastSeen.postUpdate(0)
+
+end
+*/
+
+rule "Presence"
+when
+ Time cron "0 0/1 * * * ?"
+then
+ var now = new Date
+ var Number nowepoch = now.getTime()/1000
+
+ var Number Simon_LastSeen = pSimon_Cell_LastSeen.state as Number
+ var Number Marc_LastSeen = pMarc_Cell_LastSeen.state as Number
+ var Number Gaby_LastSeen = pGaby_Cell_LastSeen.state as Number
+ var Number Isabelle_LastSeen = pIsabelle_Cell_LastSeen.state as Number
+ var Number Myriam_LastSeen = pMyriam_Cell_LastSeen.state as Number
+
+ if ((nowepoch-Simon_LastSeen > idle) pSimon.postUpdate(OFF) else pSimon.postUpdate(ON)
+ if ((nowepoch-Marc_LastSeen) > idle) pMarc.postUpdate(OFF) else pMarc.postUpdate(ON)
+ if ((nowepoch-Gaby_LastSeen) > idle) pGaby.postUpdate(OFF) else pGaby.postUpdate(ON)
+ if ((nowepoch-Isabelle_LastSeen) > idle) pIsabelle.postUpdate(OFF) else pIsabelle.postUpdate(ON)
+ if ((nowepoch-Myriam_LastSeen) > idle) pMyriam.postUpdate(OFF) else pMyriam.postUpdate(ON)
+
+ if (Presence.members.filter(s | s.state == ON).size > 0) {
+   sendCommand(sPresence, ON)
+ }
+ else
+   sendCommand(sPresence, OFF)
+end
+
+rule "Presence autres"
+when
+ Time cron "0 0/1 * * * ?"
+then
+ var now = new Date
+ var Number nowepoch = now.getTime()/1000
+
+ var Number Etienne_LastSeen = pEtienne_Cell_LastSeen.state as Number
+ var Number AmiMarc1_LastSeen = pAmiMarc1_Cell_LastSeen.state as Number
+ var Number AmiMarc2_LastSeen = pAmiMarc2_Cell_LastSeen.state as Number
+ var Number Wii_LastSeen = pWii_LastSeen.state as Number
+ var Number Xbox360_LastSeen = pXbox360_LastSeen.state as Number
+
+ if ((nowepoch-Etienne_LastSeen > idle) pEtienne.postUpdate(OFF) else pEtienne.postUpdate(ON)
+ if ((nowepoch-AmiMarc1_LastSeen > idle) pAmiMarc1.postUpdate(OFF) else pAmiMarc1.postUpdate(ON)
+ if ((nowepoch-AmiMarc2_LastSeen > idle) pAmiMarc2.postUpdate(OFF) else pAmiMarc2.postUpdate(ON)
+ if ((nowepoch-Wii_LastSeen > idle) pWii.postUpdate(OFF) else pWii.postUpdate(ON)
+ if ((nowepoch-Xbox360_LastSeen > idle) pXbox360.postUpdate(OFF) else pXbox360.postUpdate(ON)
+end
+
+rule "Set alarm"
+when
+ Presence received update
+then
+ if (Presence.status == ON) sendCommand(sAlarm_Armed, OFF)
+ else sendCommand(sAlarm_Armed, ON)
+end
+
+
+
+

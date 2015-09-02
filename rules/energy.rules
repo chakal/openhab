@@ -1,0 +1,48 @@
+import org.openhab.core.library.types.*
+import org.openhab.core.persistence.*
+import org.openhab.model.script.actions.*
+
+rule "Persist and reset kWh usage daily HEM_Eh"
+when
+  Time cron "0 59 23 * * ?"
+then
+  HEM_Eh.persist("mysql")
+  postUpdate(HEM_Ed, HEM_Eh.state)
+  HEM_Ed.persist("mysql")
+  sendCommand(sHEM_Eh_reset, ON)
+end
+
+rule "Today Energy changed"
+when
+  Item HEM_Eh changed or
+  System started
+then
+  postUpdate(Energy_Today, String::format("%.2f", (HEM_Eh.state as DecimalType).floatValue()) + " kWh / " + String::format("%.2f", (Energy_Today_cost.state as DecimalType).floatValue()) + " $")
+end
+
+rule "Yesterday Energy changed"
+when
+  Time cron "0 0 2 * * ?" or
+  System started or
+  Item Energy_Yesterday_cost changed
+then
+  var Number eh = HEM_Eh.maximumSince(now.minusDays(1)).state as DecimalType
+  postUpdate(Energy_Yesterday, String::format("%.2f", eh.floatValue()) + " kWh / " + String::format("%.2f", (Energy_Yesterday_cost.state as DecimalType).floatValue()) + " $")
+end
+
+rule "Current Month Energy changed"
+when
+  Item Energy_CurrentMonth_kwh changed or
+  System started
+then
+  postUpdate(Energy_CurrentMonth, String::format("%.2f", (Energy_CurrentMonth_kwh.state as DecimalType).floatValue()) + " kWh / " + String::format("%.2f", (Energy_CurrentMonth_cost.state as DecimalType).floatValue()) + " $")
+end
+
+rule "Last Month Energy changed"
+when
+  Item Energy_LastMonth_kwh changed or
+  System started
+then
+  postUpdate(Energy_LastMonth, String::format("%.2f", (Energy_LastMonth_kwh.state as DecimalType).floatValue()) + " kWh / " + String::format("%.2f", (Energy_LastMonth_cost.state as DecimalType).floatValue()) + " $")
+end
+

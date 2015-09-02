@@ -1,0 +1,91 @@
+Group All
+
+Group Maison 		(All)
+
+Group Weather 		(All)
+Group G			(All)
+Group PE		(All)
+Group SS		(All)
+Group Remise		(All)
+Group Presence  	(All)
+Group PresenceLastSeen 	(All)
+Group Alarm		(All)
+Group Humidity 		(All)
+Group Energy    	(All)
+Group gHEM_Eh
+Group gHEM_W
+Group gHEM_V
+Group gHEM_A
+
+/* active groups */
+Group:Switch:OR(ON, OFF) 		Lights 		"All Lights [(%d)]" 							(All)
+Group:Switch:OR(ON, OFF) 		Heating 	"No. of Active Heatings [(%d)]" 		<heating> 		(All)
+Group:Number:AVG 			Temperature	"Avg. Room Temperature [%.1f °C]" 		<temperature>		(Status)
+Group:Contact:OR(OPEN, CLOSED) 		Windows 	"Open windows [(%d)]"				<contact>		(Alarme)
+Group:Contact:OR(OPEN, CLOSED) 		Doors 		"Open doors [(%d)]"				<contact>		(Alarme)
+
+/* Weather */
+Group Weather_Chart													(Weather)
+Number Weather_Temperature 		"Présentement [%.2f °C]"	<temperature> (Weather_Chart) { weather="locationId=sherbrooke, type=temperature, property=current" }
+Number Weather_Humidity 		"Humidité extérieure [%d %%]"	<temperature> (Weather) { weather="locationId=sherbrooke, type=athmosphere, property=humidity" }
+Number Weather_Temp_Max 		"Maximum [%.1f °C]"	<temperature> (Weather_Chart) { weather="locationId=sherbrooke, forecast=0, type=temperature, property=max" }
+Number Weather_Temp_Min 		"Minimum [%.1f °C]"	<temperature> (Weather_Chart) { weather="locationId=sherbrooke, forecast=0, type=temperature, property=min" }
+Number Weather_Humidex			"Humidex [SCALE(humidex.scale):%s]" 			(Weather)
+Number Weather_Chart_Period		"Chart Period"
+DateTime Weather_LastUpdate		"Mis à jour [%1$ta %1$tR]"	<clock>
+
+/* Notifications MQTTWARN */
+String    Notify_Info         (Notification)    { mqtt=">[mosquitto:openhab/notifications/info:state:*:default]" }
+String    Notify_Alert        (Notification)    { mqtt=">[mosquitto:openhab/notifications/alert:state:*:default]" }
+String    Notify_Warn         (Notification)    { mqtt=">[mosquitto:openhab/notifications/warn:state:*:default]" }
+String    Notify_Alarm        (Notification)    { mqtt=">[mosquitto:openhab/notifications/alarm:state:*:default]" }
+
+
+/* GARAGE */
+
+Number Temperature_Chart_Garage
+
+Number Humidity_G_Garage 	"Humiditée [%.2f %%]"				(G, Humidity)	 	{ mqtt="<[arduino:MyMQTT/100/0/V_HUM:state:default]" }
+Number Temperature_G_Garage 	"Temperature [%.2f °C]"		<temperature>	(G, Temperature) 	{ mqtt="<[arduino:MyMQTT/100/1/V_TEMP:state:default]" }
+
+Switch Relay_G_Garage 		"Manette"				<garagedoor> 	(G)  			{ autoupdate="false", mqtt=">[arduino:MyMQTT/100/3/V_LIGHT:command:ON:1]" }
+Contact Contact_G_Garage 	"Garage [MAP(contact-display.map):%s]" 	<garagedoor>	(G, Doors) 		{ mqtt="<[arduino:MyMQTT/100/2/V_TRIPPED:state:MAP(contact.map)]" }
+
+DateTime Garage_LastUpdate      "Mis à jour [%1$ta %1$tR]"	<clock> 	(G)
+
+/* Alarme */
+Switch sAlarm_Armed		"Status"			<shield>	(Alarm)
+Switch Alarm_Fire		"Alarme de feu"			<fire>		(Alarm)
+
+/* Presence */
+Number pGaby_Cell_LastSeen	"Gaby Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/gaby:state:default]" }
+Number pIsabelle_Cell_LastSeen	"Isabelle Cellulaire [%d]"	<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/00eebd9f45ab:state:default]" }
+Number pMarc_Cell_LastSeen	"Marc Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/e899c4be0009:state:default]" }
+Number pSimon_Cell_LastSeen	"Simon Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/9068c3a63b0e:state:default]" }
+
+Switch pSimon			"Simon"				<present>	(Presence)
+Switch pIsabelle		"Isabelle"			<present>	(Presence)
+Switch pMarc			"Marc"				<present>	(Presence)
+Switch pGaby			"Gaby"				<present>	(Presence)
+Switch sPresence		"Global Presence"		<present>
+
+
+//Home energy monitor
+Switch   sHEM_Eh_reset	     "Reset kWh"          <energy>        	(Energy)                        { zwave="2:command=METER, meter_reset=true",autoupdate=false }
+Number   HEM_Eh                 "Energy [%.2f kWh]"          <energy>        	(Energy, gHEM_Ehy)                        { zwave="2:command=METER, meter_scale=E_KWh" }
+Number   HEM_Eh1                 "L2 kWh [%.2f kWh]"          <energy>        	(Energy, gHEM_Eh)                        { zwave="2:1:command=METER, meter_scale=E_KWh" }
+Number   HEM_Eh2                 "L1 kWh [%.2f kWh]"          <energy>        	(Energy, gHEM_Eh)                        { zwave="2:2:command=METER, meter_scale=E_KWh" }
+
+Number   HEM_P                 "Power [%.2f W]"             <energy>        (Energy, gHEM_W)                        { zwave="2:command=METER, meter_scale=E_W" }
+Number   HEM_P1                 "L1 Power [%.2f W]"             <energy>        (Energy, gHEM_W)                        { zwave="2:1:command=METER, meter_scale=E_W" }
+Number   HEM_P2                 "L2 Power [%.2f W]"             <energy>        (Energy, gHEM_W)                        { zwave="2:2:command=METER, meter_scale=E_W" }
+
+Number   HEM_V                 "Voltage [%.2f V]"           <energy>        (Energy, gHEM_V)                        { zwave="2:command=METER, meter_scale=E_V, refresh_interval=30" }
+Number   HEM_V1                 "L1 Voltage [%.2f V]"           <energy>        (Energy, gHEM_V)                        { zwave="2:1:command=METER, meter_scale=E_V" }
+Number   HEM_V2                 "L2 Voltage [%.2f V]"           <energy>        (Energy, gHEM_V)                        { zwave="2:2:command=METER, meter_scale=E_V" }
+
+Number   HEM_C                 "Current [%.2f A]"           <energy>        (Energy, gHEM_A)                        { zwave="2:command=METER, meter_scale=E_A, refresh_interval=30" }
+Number   HEM_C1                 "L1 Current [%.2f A]"           <energy>        (Energy, gHEM_A)                        { zwave="2:1:command=METER, meter_scale=E_A" }
+Number   HEM_C2                 "L2 Current [%.2f A]"           <energy>        (Energy, gHEM_A)                        { zwave="2:2:command=METER, meter_scale=E_A" }
+
+Number   HEM_Ver   		"Version [%.2f]"           <energy>        (Energy)                        { zwave="2:command=VERSION" }
