@@ -1,0 +1,14 @@
+rule "Send a status message at 19h if anything is NOT ok"
+  when
+      Time cron "0 0 19 ? * *"
+  then
+      // MySensorsGateway
+      if (Network_MySensorsGW.state == OFF && !Network_MySensorsGW.changedSince(now.minusHours(12))) {
+              Notify_Alert.postUpdate("MySensorsGW is not responding, and has been off for 12 hours(" + Network_MySensorsGW.lastUpdate.toString + ")")
+      }
+
+      // Mysensors
+      MySensorsMonitor.allMembers.filter([ !changedSince(now.minusHours(12)) ]).map[
+        Notify_Alert.postUpdate( name + " has not changed since " + lastUpdate.toString + "." )
+      ]
+end
