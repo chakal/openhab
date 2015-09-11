@@ -40,7 +40,6 @@ Number	pUnknownCount		"Unknown Presence Count [%d]"		<present>	(InitZero)			{ mq
 Switch	sPresence		"Global Presence"			<present>	(InitOff)
 Switch  pNotifications		"Notifications Presence"		<present>	(Alarm, InitOn)
 
-Switch 	Network_2600k		"PC 2600k"				<present>	(PresenceAppliance, Network, InitOff)		{ nh="16.0.100.3" }
+Switch 	Network_2600k		"PC 2600k"				<present>	(PresenceAppliance, Network, InitOff)		{ nh="16.0.100.3", exec=">[ON:wakeonlan 80:ee:73:43:cd:44]" }
 Switch 	Network_MySensorsGW	"MySensors Gateway"			<present>	(PresenceAppliance, Network, InitOff)		{ nh="16.0.100.8" }
-Switch 	Network_2600k_WOL	"Wake 2600k"				<present>	(Network)		{ wol="16.0.100.255#80-ee-73-43-cd-44" } 
 

@@ -120,7 +120,6 @@ sitemap default label="Main Menu"
 			Switch item=pCount_Alarm
 			Setpoint item=pCount_Threshold minValue=0 maxValue=50 step=1
 		}
-		Switch item=Network_2600k_WOL
 	}	
 	Frame label="Groups" {
 		Group item=Services label="Services"
