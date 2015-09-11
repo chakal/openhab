@@ -123,6 +123,7 @@ sitemap default label="Main Menu"
 		Switch item=Network_2600k_WOL
 	}	
 	Frame label="Groups" {
+		Group item=Services label="Services"
 		Group item=PE label="Premier étage" icon="firstfloor"		
 		Group item=SS label="Sous-sol" icon="groundfloor"		
 		Group item=G label="Garage" icon="garage" 
