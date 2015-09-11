@@ -1,0 +1,5 @@
+Group Services (All)
+
+Switch Service_MQTTWARN  "MQTTWarn"   (Services)   { exec=">[OFF:/etc/init.d/mqttwarn stop] >[ON:/etc/init.d/mqttwarn start] <[/etc/init.d/mqttwarn openhab:300000:MAP(services.map)]"}
+Switch Service_MERAKI  "Meraki CMX"   (Services)   { exec=">[OFF:/etc/init.d/meraki-cmx stop] >[ON:/etc/init.d/meraki-cmx start] <[/etc/init.d/meraki-cmx openhab:300000:MAP(services.map)]"}
+
