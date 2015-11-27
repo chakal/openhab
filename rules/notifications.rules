@@ -82,28 +82,28 @@ rule "Notification Presence: Gaby"
 when
  Item pGaby changed
 then
- if (sPresence.state == ON) Notify_Alert.postUpdate("Gaby is " + pGaby.state)
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("Gaby is " + pGaby.state)
 end
 
 rule "Notification Presence: Etienne"
 when
  Item pEtienne changed
 then
- if (sPresence.state == ON) Notify_Alert.postUpdate("Etienne is " + pEtienne.state)
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("Etienne is " + pEtienne.state)
 end
 
 rule "Notification Presence: AmiMarc1"
 when
  Item pAmiMarc1 changed
 then
- if (sPresence.state == ON) Notify_Alert.postUpdate("AmiMarc1 is " + pAmiMarc1.state)
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("AmiMarc1 is " + pAmiMarc1.state)
 end
 
 rule "Notification Presence: AmiMarc2"
 when
  Item pAmiMarc2 changed
 then
- if (sPresence.state == ON) Notify_Alert.postUpdate("AmiMarc2 is " + pAmiMarc2.state)
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("AmiMarc2 is " + pAmiMarc2.state)
 end
 
 
@@ -113,3 +113,33 @@ when
 then
  if ((pCount_Alarm.state == ON) && (pUnknownCount.state >= pCount_Threshold.state)) Notify_Alert.postUpdate("Presence threshold(" + pCount_Threshold.state + ") reached, " + pUnknownCount.state + " devices detected")
 end
+
+
+rule "Notification Alarm: Zone1"
+when
+ Item ZONE1_GENERAL_STATUS changed
+then
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("Fenetre Salon is " + ZONE1_GENERAL_STATUS.state)
+end
+
+rule "Notification Alarm: Zone2"
+when
+ Item ZONE2_GENERAL_STATUS changed
+then
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("Fenetre Marc is " + ZONE2_GENERAL_STATUS.state)
+end
+
+rule "Notification Alarm: Zone8"
+when
+ Item ZONE8_GENERAL_STATUS changed
+then
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("Porte Patio is " + ZONE8_GENERAL_STATUS.state)
+end
+
+rule "Notification Alarm: Zone16"
+when
+ Item ZONE16_GENERAL_STATUS changed
+then
+ if (pNotifications.state == ON) Notify_Alert.postUpdate("Porte entree is " + ZONE16_GENERAL_STATUS.state)
+end
+

@@ -1,0 +1,12 @@
+Group	MS			"Multisensors"	(All)
+
+Number  	MS1_Temperature        "Temperature [%.1f °C]"			(MS, Temperature)
+Number  	MS1_Temperature_F      "Temperature [%.1f °F]"			(MS)			{ zwave="4:command=sensor_multilevel,sensor_type=1" }
+Number  	MS1_Humidity           "Humidity [%.0f %%]"			(MS, Humidity)		{ zwave="4:command=sensor_multilevel,sensor_type=5" }
+Number  	MS1_Lux                "Lux [%.0f]"	                        (MS, Lux)		{ zwave="4:command=sensor_multilevel,sensor_type=3" }
+Number  	MS1_UV                 "UV [%.0f]"				(MS, UV)		{ zwave="4:command=sensor_multilevel,sensor_type=27" }
+Contact 	MS1_Movement           "Movement [MAP(ms_motion.map):%s]"	(MS)			{ zwave="4:command=sensor_binary,respond_to_basic=true" }
+Number  	MS1_Battery            "Battery [%s %%]"			(MS, Battery)		{ zwave="4:command=battery" }
+Contact 	MS1_Alarm              "Alarm"					(MS)			{ zwave="4:command=ALARM" }
+
+

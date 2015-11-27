@@ -13,12 +13,10 @@ when
  System started
 then
 
-  pEtienne_Cell_LastSeen.postUpdate(0)
-  pAmiMarc1_Cell_LastSeen.postUpdate(0)
-  pAmiMarc2_Cell_LastSeen.postUpdate(0)
-  pWii_LastSeen.postUpdate(0)
-  pXbox360_LastSeen.postUpdate(0)
-
+   pRoger1_LastSeen.postUpdate(0)
+  pRoger2_LastSeen.postUpdate(0)
+  pAnneMarie_LastSeen.postUpdate(0)
+  pLaurence_LastSeen.postUpdate(0)
 end
 */
 
@@ -35,11 +33,21 @@ then
  var Number Isabelle_LastSeen = pIsabelle_Cell_LastSeen.state as Number
  var Number Myriam_LastSeen = pMyriam_Cell_LastSeen.state as Number
 
+ var Number pRoger1_LastSeen = pRoger1_ipod_LastSeen.state as Number
+ var Number pRoger2_LastSeen = pRoger2_ipod_LastSeen.state as Number
+ var Number pLaurence_LastSeen = pLaurence_Cell_LastSeen.state as Number
+ var Number pAnneMarie_LastSeen = pAnneMarie_Cell_LastSeen.state as Number
+
  if ((nowepoch-Simon_LastSeen > idle) pSimon.postUpdate(OFF) else pSimon.postUpdate(ON)
  if ((nowepoch-Marc_LastSeen) > idle) pMarc.postUpdate(OFF) else pMarc.postUpdate(ON)
- if ((nowepoch-Gaby_LastSeen) > idle) pGaby.postUpdate(OFF) else pGaby.postUpdate(ON)
+ if ((nowepoch-Gaby_LastSeen) > (idle*2)) pGaby.postUpdate(OFF) else pGaby.postUpdate(ON)
  if ((nowepoch-Isabelle_LastSeen) > idle) pIsabelle.postUpdate(OFF) else pIsabelle.postUpdate(ON)
  if ((nowepoch-Myriam_LastSeen) > idle) pMyriam.postUpdate(OFF) else pMyriam.postUpdate(ON)
+
+ if ((nowepoch-pRoger1_LastSeen) > idle) pRoger1.postUpdate(OFF) else pRoger1.postUpdate(ON)
+ if ((nowepoch-pRoger2_LastSeen) > idle) pRoger2.postUpdate(OFF) else pRoger2.postUpdate(ON)
+ if ((nowepoch-pLaurence_LastSeen) > idle) pLaurence.postUpdate(OFF) else pLaurence.postUpdate(ON)
+ if ((nowepoch-pAnneMarie_LastSeen) > idle) pAnneMarie.postUpdate(OFF) else pAnneMarie.postUpdate(ON)
 
  if (Presence.members.filter(s | s.state == ON).size > 0) {
    sendCommand(sPresence, ON)

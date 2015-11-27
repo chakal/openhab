@@ -7,12 +7,19 @@ Group	PresenceLastSeen								(InitZero, All)
 
 Number	pGaby_Cell_LastSeen	"Gaby Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/b86ce8da70db:state:default]" }
 Number	pIsabelle_Cell_LastSeen	"Isabelle Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/00eebd9f45ab:state:default]" }
-Number	pMarc_Cell_LastSeen	"Marc Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/e899c4be0009:state:default]" }
-Number	pSimon_Cell_LastSeen	"Simon Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/9068c3a63b0e:state:default]" }
+Number	pMarc_Cell_LastSeen	"Marc Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/a09169e8a496:state:default]" }
+Number	pSimon_Cell_LastSeen	"Simon Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/ec1f7279e283:state:default]" }
+//Number	pSimon_Cell_LastSeen	"Simon Cellulaire [%d]"			<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/9068c3a63b0e:state:default]" }
 Number	pMyriam_Cell_LastSeen	"Myriam Cellulaire [%d]"		<present>	(PresenceLastSeen)	{ mqtt="<[mosquitto:presence/4ca56d6664e5:state:default]" }
 Number  pEtienne_Cell_LastSeen	"Etienne Cellulaire [%d]"               <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/00180ae3a920:state:default]" }
 Number	pAmiMarc1_Cell_LastSeen	"AmiMarc1 Cellulaire [%d]"              <present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/10683f447f1d:state:default]" }
 Number  pAmiMarc2_Cell_LastSeen "AmiMarc2 Cellulaire [%d]"       	<present>       (PresenceLastSeen)      { mqtt="<[mosquitto:presence/843838e0687c:state:default]" }
+
+Number pRoger1_ipod_LastSeen	"iPod Roger 1 [%d]"			<present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/2c1f23dd3e49:state:default]" }
+Number pRoger2_ipod_LastSeen    "iPod Roger 2 [%d]"                     <present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/881fa1ea1756:state:default]" }
+Number pLaurence_Cell_LastSeen  "Laurence Cellulaire [%d]"              <present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/8863dfec1f70:state:default]" }
+Number pAnneMarie_Cell_LastSeen "Anne-Marie Cellulaire [%d]"            <present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/446d6c65a1a5:state:default]" }
+
 
 Number  pXbox360_LastSeen "Xbox 360 [%d]"                		<present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/0025aeddd18b:state:default]" }
 Number  pWii_LastSeen "Wii [%d]"               		 		<present>       (PresenceLastSeen, InitZero)      { mqtt="<[mosquitto:presence/0017abe0b8b8:state:default]" }
@@ -27,6 +34,11 @@ Switch	pMyriam			"Myriam"				<present>	(PresenceMaison)
 Switch  pEtienne		"Etienne"				<present>       (PresenceConnu)
 Switch	pAmiMarc1		"Ami Marc 1"                            <present>       (PresenceConnu)
 Switch 	pAmiMarc2		"Ami Marc 2"				<present>       (PresenceConnu)
+
+Switch  pRoger1			"Roger 1"				<present>       (PresenceConnu)
+Switch  pRoger2			"Roger 2"				<present>       (PresenceConnu)
+Switch  pLaurence		"Laurence"				<present>       (PresenceConnu)
+Switch  pAnneMarie		"Tablette Anne marie"			<present>       (PresenceConnu)
 
 Switch 	pWii			"Wii"					<present>       (PresenceAppliance)
 Switch 	pXbox360		"Xbox 360"				<present>       (PresenceAppliance)
@@ -43,3 +55,7 @@ Switch  pNotifications		"Notifications Presence"		<present>	(Alarm, InitOn)
 Switch 	Network_2600k		"PC 2600k"				<present>	(PresenceAppliance, Network, InitOff)		{ nh="16.0.100.3", exec=">[ON:wakeonlan 80:ee:73:43:cd:44]" }
 Switch 	Network_MySensorsGW	"MySensors Gateway"			<present>	(PresenceAppliance, Network, InitOff)		{ nh="16.0.100.8" }
 
+Number  pRoger1_LastSeen 								(InitZero)
+Number  pRoger2_LastSeen 								(InitZero)
+Number  pLaurence_LastSeen 								(InitZero)
+Number  pAnneMarie_LastSeen 								(InitZero)

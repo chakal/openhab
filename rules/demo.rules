@@ -48,4 +48,12 @@ then
   postUpdate(Garage, String::format("%.2f", (Temperature_G_Garage.state as DecimalType).floatValue()) + " °C / " + String::format("%.2f", (Humidity_G_Garage.state as DecimalType).floatValue()) + " %")
 end
 
+rule "Multisensor F to C"
+when
+  Item MS1_Temperature_F received update
+then
+  var tempFahrenheit = (MS1_Temperature_F.state as DecimalType).doubleValue
+  var tempCelsius = (tempFahrenheit -  32)  *  5/9
 
+  postUpdate(MS1_Temperature, tempCelsius)
+end

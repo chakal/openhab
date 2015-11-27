@@ -3,9 +3,9 @@ rule "Send a status message at 19h if anything is NOT ok"
       Time cron "0 0 19 ? * *"
   then
       // MySensorsGateway
-      if (Network_MySensorsGW.state == OFF && !Network_MySensorsGW.changedSince(now.minusHours(12))) {
-              Notify_Alert.postUpdate("MySensorsGW is not responding, and has been off for 12 hours(" + Network_MySensorsGW.lastUpdate.toString + ")")
-      }
+      //if (Network_MySensorsGW.state == OFF && !Network_MySensorsGW.changedSince(now.minusHours(12))) {
+      //        Notify_Alert.postUpdate("MySensorsGW is not responding, and has been off for 12 hours(" + Network_MySensorsGW.lastUpdate.toString + ")")
+      //}
 
       // HEM
       if (!HEM_Eh.changedSince(now.minusHours(2))) {

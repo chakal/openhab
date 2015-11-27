@@ -13,9 +13,9 @@ Items {
 	
 	// let's only store temperature values in rrd
 	HEM_P,HEM_V,HEM_C,HEM_Eh : strategy = everyMinute, restoreOnStartup
-	Humidity*,Temperature*,Weather_Chart* : strategy = everyMinute, restoreOnStartup
+	Lux*,Battery*,UV*,Humidity*,Temperature*,Weather_Chart* : strategy = everyMinute, restoreOnStartup
         //Temperature*, Weather* : strategy = everyChange, everyMinute, everyHour, restoreOnStartup
         pCount_Alarm, pCount_Threshold, Doors* : strategy = everyChange, restoreOnStartup
-        PresenceLastSeen*, Presence*, Alarm* : strategy = everyChange, restoreOnStartup
+        PresenceLastSeen*, Presence*, Alarm*, AlarmLog* : strategy = everyChange, restoreOnStartup
 }
 
